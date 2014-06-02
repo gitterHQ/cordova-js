@@ -23,7 +23,6 @@ var channel = require('cordova/channel');
 var cordova = require('cordova');
 var modulemapper = require('cordova/modulemapper');
 var platform = require('cordova/platform');
-var pluginloader = require('cordova/pluginloader');
 
 var platformInitChannelsArray = [channel.onNativeReady, channel.onPluginsReady];
 
@@ -106,9 +105,7 @@ platform.bootstrap && platform.bootstrap();
 // Wrap in a setTimeout to support the use-case of having plugin JS appended to cordova.js.
 // The delay allows the attached modules to be defined before the plugin loader looks for them.
 setTimeout(function() {
-    pluginloader.load(function() {
-        channel.onPluginsReady.fire();
-    });
+    channel.onPluginsReady.fire();
 }, 0);
 
 /**
